@@ -8,6 +8,9 @@ class Department:
 
 class Employee:
     def __init__(self, code, name, salary):
+        if (type(self) == Employee):
+            raise TypeError(
+                'Por favor refaça, a classe Employee não deve ser instaciada diretamente')
         self.code = code
         self.name = name
         self.salary = salary
@@ -22,7 +25,7 @@ class Employee:
 class Manager(Employee):
     def __init__(self, code, name, salary):
         super().__init__(code, name, salary)
-        self.departament = Department('managers', 1)
+        self.__departament = Department('managers', 1)
 
     def calc_bonus(self):
         return self.salary * 0.15
