@@ -29,7 +29,7 @@ class Employee(ABC):
     def set_department(self, department, dep_code):
         self.__department = Department(department, dep_code)
 
-    def get_department(self):
+    def get_departament(self):
         return self.__department.name
 
 
@@ -54,10 +54,3 @@ class Seller(Employee):
 
     def put_sales(self, value):
         self.__sales += value
-
-
-seller = Seller(123, 'Marcelo', 123456567)
-manager = Manager(123, 'Annabel', 1239847875)
-
-print(seller.get_department())
-print(manager.get_department())
