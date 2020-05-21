@@ -1,4 +1,5 @@
-
+from abc import ABC
+from abc import abstractmethod
 
 class Department:
     def __init__(self, name, code):
@@ -6,11 +7,14 @@ class Department:
         self.code = code
 
 
-class Employee:
+class Employee(ABC):
+    @abstractmethod
+
     def __init__(self, code, name, salary):
         if (type(self) == Employee):
             raise TypeError(
-                'Por favor refaça, a classe Employee não deve ser instaciada diretamente')
+                'A classe Employee não deve ser instanciada diretamente')
+
         self.code = code
         self.name = name
         self.salary = salary
@@ -19,7 +23,13 @@ class Employee:
         pass
 
     def get_hours(self):
-        pass
+        return 8
+
+    def get_department(self):
+        return self.__departament.name
+
+    def set_department(self, name, code):
+        self.__departament = Department(name, code)
 
 
 class Manager(Employee):
@@ -34,8 +44,14 @@ class Manager(Employee):
 class Seller(Manager):
     def __init__(self, code, name, salary):
         super().__init__(code, name, salary)
-        self.departament = Department('sellers', 2)
-        self.sales = 0
+        self.__departament = Department('sellers', 2)
+        self.__sales = 0
 
-    def get_hours(self):
-        return 6
+    def calc_bonus(self):
+        return self.__sales * 0.15
+
+    def get_sales(self):
+        return self.__sales
+
+    def put_sales(self, value):
+        self.__sales += value
