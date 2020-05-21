@@ -1,5 +1,4 @@
-from abc import ABC
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 
 class Department:
     def __init__(self, name, code):
@@ -8,43 +7,43 @@ class Department:
 
 
 class Employee(ABC):
+   
     @abstractmethod
-
-    def __init__(self, code, name, salary):
+    def __init__(self, code, name, salary, department):
         if (type(self) == Employee):
             raise TypeError(
                 'A classe Employee não deve ser instanciada diretamente')
-
         self.code = code
         self.name = name
         self.salary = salary
+        self.__department = department
+        self.workload_employee = 8
 
+    @abstractmethod
     def calc_bonus(self):
         pass
 
     def get_hours(self):
-        return 8
+        return self.workload_employee
+
+    def set_department(self, department, dep_code):
+        self.__department = Department(department, dep_code)
 
     def get_department(self):
-        return self.__departament.name
-
-    def set_department(self, name, code):
-        self.__departament = Department(name, code)
+        return self.__department.name
 
 
 class Manager(Employee):
     def __init__(self, code, name, salary):
-        super().__init__(code, name, salary)
-        self.__departament = Department('managers', 1)
+        super().__init__(code, name, salary, Department('managers', 1))
 
     def calc_bonus(self):
         return self.salary * 0.15
+    
 
-
-class Seller(Manager):
+class Seller(Employee):
     def __init__(self, code, name, salary):
-        super().__init__(code, name, salary)
-        self.__departament = Department('sellers', 2)
+        super().__init__(code, name, salary, Department('sellers', 2))
         self.__sales = 0
 
     def calc_bonus(self):
@@ -55,3 +54,10 @@ class Seller(Manager):
 
     def put_sales(self, value):
         self.__sales += value
+
+
+seller = Seller(123, 'Marcelo', 123456567)
+manager = Manager(123, 'Annabel', 1239847875)
+
+print(seller.get_department())
+print(manager.get_department())
