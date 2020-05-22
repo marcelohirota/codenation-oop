@@ -19,6 +19,7 @@ class Employee(ABC):
         self.__department = department
         self.workload_employee = 8
 
+    # Necessário sempre implementar essa função em cada nova classe filha
     @abstractmethod
     def calc_bonus(self):
         pass
